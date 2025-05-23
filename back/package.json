@@ -1,0 +1,38 @@
+{
+  "name": "back",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "setup": "prisma generate",
+    "migrate": "prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "@prisma/extension-accelerate": "^2.0.0",
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "next": "15.3.2",
+    "nodemon": "^3.1.10",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.2",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.2",
+    "prisma": "^6.8.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
