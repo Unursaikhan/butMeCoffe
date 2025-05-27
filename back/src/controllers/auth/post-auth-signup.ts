@@ -1,13 +1,14 @@
-import { RequestHandler } from "express";
 import bcrypt from "bcrypt";
 import { prisma } from "../../db";
 
-export const postAuthSignup: RequestHandler = async (req, res) => {
+export const postAuthSignup = async (req, res) => {
   try {
     const { email, password, username } = req.body;
 
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ email }, { username }],
+      },
     });
 
     if (existingUser) {
@@ -19,8 +20,8 @@ export const postAuthSignup: RequestHandler = async (req, res) => {
 
     await prisma.user.create({
       data: {
-        email,
         username,
+        email,
         password: hashedPassword,
         createdAt: new Date(),
         updatedAt: new Date(),

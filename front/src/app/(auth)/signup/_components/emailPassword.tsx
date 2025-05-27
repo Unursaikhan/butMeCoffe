@@ -10,14 +10,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { api } from "@/axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useAuth } from "@/app/_providers/AuthProvider";
 const formSchema = z.object({
+  username: z.string().min(3, {
+    message: "Username must be at least 3 characters.",
+  }),
   email: z
     .string()
     .min(2, { message: "Emailee bvten oruulna uu." })
@@ -27,31 +29,61 @@ const formSchema = z.object({
     message: "password oruulna uu!",
   }),
 });
-export const Login = () => {
+interface Props {
+  username: string;
+}
+
+export const EmailAndPassword = ({ username }: Props) => {
   const router = useRouter();
-  const { user, signIn } = useAuth();
+  const [account, setAccount] = useState("");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
+      username,
     },
   });
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    await postAccount(values);
+  };
+
+  const postAccount = async ({
+    username,
+    email,
+    password,
+  }: {
+    username: string;
+    email: string;
+    password: string;
+  }) => {
     try {
-      await signIn(values.email, values.password);
-      if (!user) return;
-      else {
-        router.push("/");
-      }
+      const response = await api.post("/auth/sign-up", {
+        username,
+        email,
+        password,
+      });
+      console.log("Account created:", response.data);
+      setTimeout(() => {
+        router.push("/login");
+      }, 1000);
+      setAccount("Account created");
     } catch (error) {
-      console.error("Login error:", error);
+      console.log("Signup failed:", error);
+      setAccount("email exists or somthing went wrong try again!");
     }
   };
+
   return (
-    <div className="flex flex-col">
+    <div>
       <div className="py-6 flex flex-col gap-[6px]">
-        <div className="text-[24px] font-semibold text-black">Welcome back</div>
+        <div className="text-[24px] font-semibold text-black">
+          Welcome, {username}
+        </div>
+        <p className="text-[14px] text-muted-foreground">
+          Connect email and set a password
+        </p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -62,7 +94,7 @@ export const Login = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl className="w-[359px]">
-                  <Input placeholder="Enter username here" {...field} />
+                  <Input placeholder="Enter email here" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -74,18 +106,33 @@ export const Login = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
-                <FormControl className="w-[359px]">
-                  <Input placeholder="Enter username here" {...field} />
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Enter password here"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type="submit" className="w-full">
-            Continue
+            Sign Up
           </Button>
         </form>
       </Form>
+      {account && (
+        <p
+          className={`mt-4 text-center ${
+            account === "User Already Exists"
+              ? "text-red-600"
+              : "text-green-600"
+          }`}
+        >
+          {account}
+        </p>
+      )}
     </div>
   );
 };

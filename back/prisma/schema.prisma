@@ -14,10 +14,10 @@ model User {
   username      String @unique
   profile       Profile?
   bankcard      Bankcard?
-  donations     Dontations[]
+  donations     Donations[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-}
+}   
 
 model Profile {
   id            Int      @id @default(autoincrement())
@@ -25,7 +25,7 @@ model Profile {
   about         String
   avatarImage   String
   socialMedia   String
-  backGroundImage String
+  backGroundImage String 
   userId        Int @unique
   user          User  @relation(fields: [userId], references: [id])
   createdAt     DateTime @default(now())
@@ -36,14 +36,15 @@ model Bankcard {
   country       String
   firstName     String
   lastName      String
-  catdNumber    String
-  expiryDate    DateTime
+  cardNumber    String
+  expiryDate    String
+  CVC           String
   userId        Int @unique
   user          User @relation(fields: [userId], references: [id])
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
-model Dontations{
+model Donations{
   id            Int    @id @default(autoincrement())
   amount        Int
   specialMessage String

@@ -1,24 +1,20 @@
 import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 
-// Type-safe middleware with only userId
-export const authenticationMiddleware: RequestHandler = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Unauthenticated" });
+export const authenticationMiddleware: any = (req, res, next) => {
+  const token = req.headers.authorization;
+  console.log(token);
+  if (!token) {
+    res.status(401).json({ message: "Unauthenticated" });
+    return;
   }
-
-  const token = authHeader.split(" ")[1];
-
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
-      userId: number; // or string, depending on how you encoded it
+    const { userId } = jwt.verify(token, process.env.JWT_SECRET) as {
+      userId: number;
     };
-
-    req.userId = decoded.userId;
+    req.userId = userId;
     next();
   } catch (error) {
-    res.status(401).json({ message: "Invalid or expired token" });
+    res.status(401).json({ message: "Invalid token" });
   }
 };

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
+import { AuthProvider } from "./_providers/AuthProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="w-screen flex justify-center">{children}</div>
+        <Suspense>
+          <AuthProvider>
+            <div className="w-screen flex justify-center">{children}</div>
+          </AuthProvider>
+        </Suspense>
+        <Toaster />
       </body>
     </html>
   );
