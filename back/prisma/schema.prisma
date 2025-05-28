@@ -8,13 +8,14 @@ generator client {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  email         String   @unique
-  password      String
-  username      String @unique
-  profile       Profile?
-  bankcard      Bankcard?
-  donations     Donations[]
+  id               Int          @id @default(autoincrement())
+  email            String       @unique
+  password         String
+  username         String       @unique
+  profile          Profile?
+  bankcards        Bankcard[]
+  receivedDonations Donations[] @relation("ReceivedDonations")
+  sentDonations     Donations[] @relation("SentDonations")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }   
@@ -44,12 +45,17 @@ model Bankcard {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
-model Donations{
-  id            Int    @id @default(autoincrement())
-  amount        Int
-  specialMessage String
-  recipientId   Int   @unique
-  recipent      User @relation(fields: [recipientId], references: [id])
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+model Donations {
+  id              Int       @id @default(autoincrement())
+  amount          Int
+  specialMessage  String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  recipientId     Int
+  recipent        User      @relation("ReceivedDonations", fields: [recipientId], references: [id])
+
+  senderId        Int
+  sender          User      @relation("SentDonations", fields: [senderId], references: [id])
 }
+

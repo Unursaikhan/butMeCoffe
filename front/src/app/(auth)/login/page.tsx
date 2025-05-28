@@ -8,10 +8,12 @@ export default function Home() {
   return (
     <div className="w-[1440px] flex gap-5  h-screen">
       <div className="flex-1 bg-amber-400 relative flex items-center justify-center">
-        <div className="flex gap-2 absolute top-8 left-8">
-          <Logo />
-          <h1 className="font-bold text-[16px]">Buy Me Coffee</h1>
-        </div>
+        <Link href={"/"}>
+          <div className="flex gap-2 absolute top-8 left-8">
+            <Logo />
+            <h1 className="font-bold text-[16px]">Buy Me Coffee</h1>
+          </div>
+        </Link>
         <div className="flex flex-col w-[455px] gap-10 items-center">
           <img src="/signupLogo.png" className="w-60 h-60" alt="" />
           <div className="flex flex-col gap-3">

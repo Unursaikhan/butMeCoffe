@@ -20,8 +20,8 @@ import Image from "next/image";
 import { useAuth } from "@/app/_providers/AuthProvider";
 import { api } from "@/axios";
 
-const UPLOAD_PRESET = "guneegod";
-const CLOUD_NAME = "dqd01lbfy";
+const UPLOAD_PRESET = "Unuullr";
+const CLOUD_NAME = "dm1u3mjr4";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -79,7 +79,7 @@ export const CompletePro = ({ onComplete }: { onComplete: () => void }) => {
         name: values.name,
         about: values.about,
         avatarImage: values.photo,
-        socialMediaURL: values.social,
+        socialMedia: values.social,
         userId: Number(user?.id),
       });
       onComplete();

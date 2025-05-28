@@ -17,8 +17,13 @@ type User = {
   image: string;
   profile: {
     id: number;
+    image: string;
+    name: string;
+    avatarImage: string;
+    backGroundImage: string;
+    socialMedia: string;
   };
-  backcard: {
+  backcards: {
     id: number;
   };
   username: string;

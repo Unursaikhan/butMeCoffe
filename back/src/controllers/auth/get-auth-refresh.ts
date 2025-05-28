@@ -8,7 +8,7 @@ export const getMe = async (req, res) => {
       where: { id: userId },
       include: {
         profile: true,
-        bankcard: true,
+        bankcards: true,
       },
     });
 

@@ -88,6 +88,9 @@ export const Payment = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     addBankCard(values);
   }
+  if (user?.backcards) {
+    router.push("/Home");
+  }
   return (
     <div className="w-[510px] h-[486px] flex flex-col">
       <div className="w-full h-[106px] flex flex-col gap-[6px] py-[24px]">

@@ -36,7 +36,7 @@ export default function Home() {
     );
   }
   return (
-    <div className="w-screen flex flex-col justify-center">
+    <div className="w-screen flex  justify-center">
       {user ? (
         <div>
           <HeaderSignedIn />
