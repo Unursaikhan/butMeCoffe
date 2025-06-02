@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "setup": "prisma generate",
-    "migrate": "prisma migrate dev"
+    "migrate": "prisma migrate dev",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
