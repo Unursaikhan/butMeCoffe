@@ -22,7 +22,7 @@ export default function Home() {
       setStep("profile");
     }
 
-    if (user?.backcard?.id) {
+    if (user?.bankcards?.length && user.bankcards.length > 0) {
       router.push("/Home");
     }
     setLoading(false);
@@ -36,7 +36,7 @@ export default function Home() {
     );
   }
   return (
-    <div className="w-screen flex  justify-center">
+    <div className="w-screen flex justify-center">
       {user ? (
         <div>
           <HeaderSignedIn />

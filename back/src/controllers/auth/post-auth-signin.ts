@@ -15,6 +15,10 @@ export const postAuthSignin = async (req, res) => {
     // Find user by email
     const user = await prisma.user.findUnique({
       where: { email },
+      include: {
+        profile: true,
+        bankcards: true,
+      },
     });
 
     if (!user) {
@@ -29,9 +33,8 @@ export const postAuthSignin = async (req, res) => {
         .json({ message: "Email эсвэл нууц үг буруу байна!" });
     }
 
-    // Generate JWT with correct argument order: payload, secret, options
     const token = jwt.sign(
-      { userId: user.id }, // payload (user info)
+      { userId: user.id },
       process.env.JWT_SECRET as string, // secret key
       { expiresIn: "7d" } // options
     );

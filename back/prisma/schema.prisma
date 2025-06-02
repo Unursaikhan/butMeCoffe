@@ -31,6 +31,7 @@ model Profile {
   user          User  @relation(fields: [userId], references: [id])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  successMessage   String   @default("Thank you") 
 }
 model Bankcard {
   id            Int   @id @default(autoincrement())
@@ -51,10 +52,10 @@ model Donations {
   specialMessage  String
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-
+  socialMedia     String    @default("")
   recipientId     Int
   recipent        User      @relation("ReceivedDonations", fields: [recipientId], references: [id])
-
+  isPaid          Boolean   @default(false)
   senderId        Int
   sender          User      @relation("SentDonations", fields: [senderId], references: [id])
 }

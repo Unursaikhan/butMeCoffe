@@ -11,7 +11,7 @@ export const Menu = () => {
           <p className="text-[14px] font-medium">Explore</p>
         </div>
       </Link>
-      <Link href={"/ViewPage"}>
+      <Link href={"/Profile"}>
         <div className="bg-white flex items-center h-9 px-4 hover:bg-[#F4F4F5]">
           <p className="text-[14px] font-medium">View page</p>
         </div>

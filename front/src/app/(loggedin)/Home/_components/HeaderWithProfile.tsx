@@ -29,7 +29,10 @@ export const HeaderWithPro = () => {
           <DropdownMenuTrigger className="flex items-center gap-4">
             {" "}
             <Image
-              src={user?.profile?.avatarImage || "ASDASD"}
+              src={
+                user?.profile?.avatarImage ||
+                "http://res.cloudinary.com/dm1u3mjr4/image/upload/v1748853653/ovuzestg4yba7u8avzp9.png"
+              }
               alt="Profile Preview"
               width={40}
               height={40}

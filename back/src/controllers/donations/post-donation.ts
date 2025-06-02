@@ -2,7 +2,8 @@ import { prisma } from "../../db";
 
 export const postDonation = async (req, res) => {
   try {
-    const { amount, specialMessage, recipientId, senderId } = req.body;
+    const { amount, specialMessage, recipientId, senderId, socialMedia } =
+      req.body;
 
     if (!amount || !recipientId || !senderId) {
       return res.status(400).json({ error: "Missing required fields" });
@@ -10,6 +11,8 @@ export const postDonation = async (req, res) => {
 
     const donation = await prisma.donations.create({
       data: {
+        isPaid: false,
+        socialMedia,
         amount,
         specialMessage,
         recipientId,

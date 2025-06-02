@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/app/_providers/AuthProvider";
 const formSchema = z.object({
   email: z
@@ -37,6 +37,7 @@ export const Login = () => {
       password: "",
     },
   });
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await signIn(values.email, values.password);

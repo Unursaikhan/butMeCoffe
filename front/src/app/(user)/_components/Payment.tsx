@@ -49,6 +49,7 @@ const formSchema = z.object({
 export const Payment = () => {
   const { user, getUser } = useAuth();
   const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -88,9 +89,7 @@ export const Payment = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     addBankCard(values);
   }
-  if (user?.backcards) {
-    router.push("/Home");
-  }
+
   return (
     <div className="w-[510px] h-[486px] flex flex-col">
       <div className="w-full h-[106px] flex flex-col gap-[6px] py-[24px]">
@@ -233,9 +232,16 @@ export const Payment = () => {
                           <SelectValue placeholder="Year" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="2000">2000</SelectItem>
-                          <SelectItem value="2001">2001</SelectItem>
-                          <SelectItem value="2002">2002</SelectItem>
+                          <SelectItem value="2025">2025</SelectItem>
+                          <SelectItem value="2026">2026</SelectItem>
+                          <SelectItem value="2027">2027</SelectItem>
+                          <SelectItem value="2028">2028</SelectItem>
+                          <SelectItem value="2029">2029</SelectItem>
+                          <SelectItem value="2030">2030</SelectItem>
+                          <SelectItem value="2031">2031</SelectItem>
+                          <SelectItem value="2032">2032</SelectItem>
+                          <SelectItem value="2033">2033</SelectItem>
+                          <SelectItem value="2034">2034</SelectItem>
                         </SelectContent>
                       </Select>
                     </FormControl>

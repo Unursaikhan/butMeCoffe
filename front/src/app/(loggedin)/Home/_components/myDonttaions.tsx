@@ -13,15 +13,17 @@ import { ExternalLinkIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { api } from "@/axios";
+import { env } from "process";
 type Donation = {
   id: number;
   amount: number;
   specialMessage: string;
   recipientId: number;
-  createdAt: string; // or `Date` if you're parsing it
+  createdAt: string;
   updatedAt: string;
 };
 export const MyDontaions = () => {
+  const [copied, setCopied] = useState(false);
   const [donations, setDonations] = useState<Donation[]>([]);
   const { user } = useAuth();
   const getMyDonations = async () => {
@@ -44,6 +46,14 @@ export const MyDontaions = () => {
     (sum, donation) => sum + donation.amount,
     0
   );
+  const handleCopyLink = () => {
+    const link = `${window.origin}/user/${user?.username}`;
+    navigator.clipboard.writeText(link).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
   return (
     <div className="p-6 flex flex-col gap-3 border rounded-2xl">
       <div className="flex justify-between">
@@ -63,8 +73,9 @@ export const MyDontaions = () => {
           </div>
         </div>
         <div>
-          <Button>
-            <ExternalLinkIcon /> Share page link
+          <Button onClick={handleCopyLink} variant="outline">
+            <ExternalLinkIcon className="mr-2 h-4 w-4" />
+            {copied ? "Copied!" : "Share page link"}
           </Button>
         </div>
       </div>

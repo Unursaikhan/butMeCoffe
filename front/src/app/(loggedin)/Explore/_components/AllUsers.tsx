@@ -1,46 +1,62 @@
+// components/AllUser.tsx
+"use client";
+
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkIcon } from "lucide-react";
 
 export const AllUser = ({ users }: { users: any[] }) => {
   return (
-    <div className="flex flex-col gap-6">
-      {users.map((user) => (
+    <div className="flex flex-col gap-6 max-h-[880px] overflow-auto">
+      {users.map((u) => (
         <div
-          className="flex flex-col gap-3 p-6 border rounded-2xl min-h-[224px]"
-          key={user.id}
+          key={u.id}
+          className="flex flex-col gap-3 p-6 border rounded-2xl min-h-[224px] transition-shadow"
         >
-          <div key={user.id} className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-3">
-                <img
-                  src={user.profile.avatarImage}
-                  alt={user.profile.name}
-                  className="w-10 h-10 object-cover rounded-full"
-                />
-                <h4 className="font-semibold text-[20px]">
-                  {user.profile.name}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img
+                src={u.profile.avatarImage}
+                alt={u.profile.name}
+                className="w-10 h-10 object-cover rounded-full"
+              />
+              <Link
+                href={`/user/${u.username}`}
+                key={u.id}
+                className="block hover:shadow-lg"
+              >
+                <h4 className="font-semibold text-[20px] hover:underline">
+                  {u.profile.name}
                 </h4>
-              </div>
+              </Link>
             </div>
-            <Button variant={"secondary"}>
-              View profile
-              <ExternalLinkIcon />
-            </Button>
+            <Link
+              href={`/user/${u.username}`}
+              key={u.id}
+              className="block hover:shadow-lg"
+            >
+              <Button
+                variant="secondary"
+                className=" underline-offset-4 hover:underline"
+                size="sm"
+              >
+                View profile
+                <ExternalLinkIcon className="ml-1" />
+              </Button>
+            </Link>
           </div>
           <div className="flex gap-5">
-            <div className="flex-5 flex flex-col gap-2">
-              <div className="h-9 flex items-center">
-                <h1 className="font-semibold text-[16px]">
-                  About {user.profile.name}
-                </h1>
-              </div>
-              <div className="text-[14px]">{user.profile.about}</div>
+            <div className="flex-1 flex flex-col gap-2">
+              <h1 className="font-semibold text-[16px]">
+                About {u.profile.name}
+              </h1>
+              <p className="text-[14px] line-clamp-3">{u.profile.about}</p>
             </div>
-            <div className="flex-4 flex flex-col gap-2">
-              <div className="h-9 flex items-center">
-                <h1 className="font-semibold text-[16px]">Social media URL</h1>
-              </div>
-              <div className="text-[14px]">{user.profile.socialMedia}</div>
+            <div className="flex-1 flex flex-col gap-2">
+              <h1 className="font-semibold text-[16px]">Social media URL</h1>
+              <p className="text-[14px] line-clamp-3">
+                {u.profile.socialMedia}
+              </p>
             </div>
           </div>
         </div>

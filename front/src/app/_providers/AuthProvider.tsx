@@ -22,10 +22,16 @@ type User = {
     avatarImage: string;
     backGroundImage: string;
     socialMedia: string;
+    about: string;
+    successMessage: string;
   };
-  backcards: {
+  bankcards: {
     id: number;
-  };
+    country: string;
+    firstName: string;
+    lastName: string;
+    cardNumber: string;
+  }[];
   username: string;
 };
 type AuthContextType = {
@@ -47,6 +53,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         email,
         password,
       });
+      console.log("USer", data.user);
       localStorage.setItem("token", data.token);
       setUser(data.user);
       router.push("/");
@@ -73,6 +80,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const signOut = async () => {
+    setAuthToken(null);
     localStorage.removeItem("token");
     setUser(undefined);
     router.push("/");
@@ -91,7 +99,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const token = localStorage.getItem("token");
     if (!token) return;
     setAuthToken(token);
-
     getUser();
   }, []);
 
