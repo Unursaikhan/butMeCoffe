@@ -1,0 +1,62 @@
+datasource db {
+  provider = "postgresql"
+  url      = "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMDFKVllCN0VDNEdWODIyTkc1UTM2VzdHQlYiLCJ0ZW5hbnRfaWQiOiJiMDkwN2M1N2Y2NDQ4YzQwNGYzZDI5YThmMDFiYWEzNWY2M2MxMjlmZGMwZjNjOGNiODlkZjRhZmM2MjdlM2M2IiwiaW50ZXJuYWxfc2VjcmV0IjoiOWM4NGUwYzYtYzE3YS00YmFkLThkN2EtYzNiNjhmZGQwYmFhIn0.mt_s7Po_axBnrol46ghIbejp2iUnP7nUu9Q6F_2lllw"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               Int          @id @default(autoincrement())
+  email            String       @unique
+  password         String
+  username         String       @unique
+  profile          Profile?
+  bankcards        Bankcard[]
+  receivedDonations Donations[] @relation("ReceivedDonations")
+  sentDonations     Donations[] @relation("SentDonations")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}   
+
+model Profile {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique
+  about         String
+  avatarImage   String
+  socialMedia   String
+  backGroundImage String 
+  userId        Int @unique
+  user          User  @relation(fields: [userId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  successMessage   String   @default("Thank you") 
+}
+model Bankcard {
+  id            Int   @id @default(autoincrement())
+  country       String
+  firstName     String
+  lastName      String
+  cardNumber    String
+  expiryDate    String
+  CVC           String
+  userId        Int @unique
+  user          User @relation(fields: [userId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+model Donations {
+  id              Int       @id @default(autoincrement())
+  amount          Int
+  specialMessage  String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  socialMedia     String    @default("")
+  recipientId     Int
+  recipent        User      @relation("ReceivedDonations", fields: [recipientId], references: [id])
+  isPaid          Boolean   @default(false)
+  senderId        Int
+  sender          User      @relation("SentDonations", fields: [senderId], references: [id])
+}
+
