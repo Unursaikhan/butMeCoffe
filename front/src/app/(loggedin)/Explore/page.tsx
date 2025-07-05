@@ -1,7 +1,6 @@
 "use client";
 
 import { useAuth } from "@/app/_providers/AuthProvider";
-import { HeaderSignedIn } from "../../(user)/_components/HeaderSignedIn";
 import { Menu } from "./_components/Menu";
 import { HeaderWithPro } from "../Home/_components/HeaderWithProfile";
 import { ExploreField } from "./_components/explorField";

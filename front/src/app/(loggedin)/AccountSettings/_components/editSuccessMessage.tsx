@@ -61,9 +61,8 @@ export const ChangeSuccessMessage = () => {
       );
 
       toast.success("Success message updated.");
-    } catch (err: any) {
-      const msg = err?.response?.data?.message || "Failed to update message";
-      toast.error(msg);
+    } catch {
+      toast.error("Failed to update message");
     } finally {
       setLoading(false);
     }

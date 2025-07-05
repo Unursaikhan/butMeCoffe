@@ -94,7 +94,6 @@ export const CompletePro = ({ onComplete }: { onComplete: () => void }) => {
     }
     getUser();
   }, []);
-  console.log("user", user);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -120,7 +119,7 @@ export const CompletePro = ({ onComplete }: { onComplete: () => void }) => {
             <FormField
               control={form.control}
               name="photo"
-              render={({ field }) => (
+              render={({}) => (
                 <FormItem>
                   <FormLabel>Add photo</FormLabel>
                   <div className="relative w-40 h-40 border-dashed border-2 rounded-full flex items-center justify-center overflow-hidden">

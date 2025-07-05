@@ -4,8 +4,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkIcon } from "lucide-react";
+import { Usertype } from "@/app/_providers/AuthProvider";
 
-export const AllUser = ({ users }: { users: any[] }) => {
+export const AllUser = ({ users }: { users: Usertype[] }) => {
   return (
     <div className="flex flex-col gap-6 max-h-[880px] overflow-auto">
       {users.map((u) => (

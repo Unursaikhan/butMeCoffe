@@ -13,7 +13,6 @@ import { ExternalLinkIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { api } from "@/axios";
-import { env } from "process";
 type Donation = {
   id: number;
   amount: number;

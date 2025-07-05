@@ -113,7 +113,7 @@ export const EditProfileForm = () => {
           <FormField
             control={form.control}
             name="photo"
-            render={({ field }) => (
+            render={({}) => (
               <FormItem className="flex flex-col gap-3">
                 <FormLabel>Add photo</FormLabel>
                 <div className="relative w-40 h-40 border-dashed border-2 rounded-full flex items-center justify-center overflow-hidden">

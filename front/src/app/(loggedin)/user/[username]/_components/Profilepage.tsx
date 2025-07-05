@@ -1,11 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
-
 import { Separator } from "@/components/ui/separator";
-import { ChevronDown, ChevronUp, Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { RecentUserSupporters } from "./RecentUserSupporters";
 
 type Donation = {
@@ -41,10 +35,6 @@ interface UserProfilePageProps {
 }
 
 export const UserProfilePage: React.FC<UserProfilePageProps> = ({ user }) => {
-  const [showAll, setShowAll] = useState(false);
-  const donations = user.receivedDonations;
-  const shownDonations = showAll ? donations : donations.slice(0, 1);
-
   return (
     <div className="flex flex-col gap-5 w-[643px]">
       <div className="flex flex-col border rounded-2xl bg-white p-6 gap-2">

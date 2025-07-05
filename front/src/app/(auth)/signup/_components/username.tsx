@@ -3,18 +3,15 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "@/axios";
 import { EmailAndPassword } from "./emailPassword";
@@ -24,7 +21,6 @@ const formSchema = z.object({
   }),
 });
 export const Username = () => {
-  const router = useRouter();
   const [step, setStep] = useState(1);
   const [userExists, setUserExists] = useState("");
   const [savedUsername, setSavedUsername] = useState("");
@@ -52,8 +48,7 @@ export const Username = () => {
         setSavedUsername(username);
         setTimeout(() => setStep(2), 1000);
       }
-    } catch (error) {
-      console.log("Signup failed:", error);
+    } catch {
       setUserExists("Something went wrong. Try again.");
     }
   };

@@ -3,19 +3,10 @@ import { useEffect, useState } from "react";
 import { AllUser } from "./AllUsers";
 import { SearchCreators } from "./SearchCreators";
 import { api } from "@/axios";
-
-type User = {
-  id: number;
-  profile: {
-    name: string;
-    avatarImage: string;
-    socialMedia: string;
-    about: string;
-  };
-};
+import { Usertype } from "@/app/_providers/AuthProvider";
 
 export const ExploreField = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<Usertype[]>([]);
   const [search, setSearch] = useState("");
 
   const getAllUsers = async () => {

@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Logo } from "../_assets/Logo";
-import Link from "next/link";
 import { useAuth } from "@/app/_providers/AuthProvider";
 
 export const HeaderSignedIn = () => {

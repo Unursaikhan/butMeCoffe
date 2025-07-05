@@ -7,7 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Coffee } from "lucide-react";
 import { useAuth } from "@/app/_providers/AuthProvider";
 import { api } from "@/axios";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 type UserProfile = {
@@ -21,7 +20,6 @@ type UserProfile = {
     socialMedia: string;
     successMessage: string;
   };
-  // ... you can include other fields if needed
 };
 
 interface UserDonationPageProps {
@@ -34,7 +32,6 @@ export const UserDonationPage: React.FC<UserDonationPageProps> = ({
   fetchUser,
 }) => {
   const { user: currentUser } = useAuth();
-  const router = useRouter();
 
   const [amount, setAmount] = useState<number | null>(null);
   const [socialMediaUrl, setSocialMediaUrl] = useState<string>("");
@@ -79,9 +76,8 @@ export const UserDonationPage: React.FC<UserDonationPageProps> = ({
 
       toast.success(`You donated $${amount} to ${user.profile.name}!`);
       setSpecialMessage("");
-    } catch (err: any) {
-      console.error(err);
-      toast.error(err?.response?.data?.error || "Failed to send donation.");
+    } catch {
+      toast.error("Failed to send donation.");
     } finally {
       setLoading(false);
     }

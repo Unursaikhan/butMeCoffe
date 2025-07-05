@@ -3,7 +3,6 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -59,18 +58,16 @@ export const EmailAndPassword = ({ username }: Props) => {
     password: string;
   }) => {
     try {
-      const response = await api.post("/auth/sign-up", {
+      await api.post("/auth/sign-up", {
         username,
         email,
         password,
       });
-      console.log("Account created:", response.data);
       setTimeout(() => {
         router.push("/login");
       }, 1000);
       setAccount("Account created");
-    } catch (error) {
-      console.log("Signup failed:", error);
+    } catch {
       setAccount("email exists or somthing went wrong try again!");
     }
   };

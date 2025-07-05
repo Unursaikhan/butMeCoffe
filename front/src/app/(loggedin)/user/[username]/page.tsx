@@ -51,7 +51,7 @@ export default function ProfilePage() {
       if (!res.ok) throw new Error("User not found");
       const data: UserProfile = await res.json();
       setUser(data);
-    } catch (error) {
+    } catch {
       router.push("/404");
     } finally {
       setLoading(false);

@@ -66,9 +66,8 @@ export const SetNewPassword = () => {
 
       toast.success("Password changed successfully.");
       form.reset();
-    } catch (err: any) {
-      const msg = err?.response?.data?.message || "Failed to change password";
-      toast.error(msg);
+    } catch {
+      toast.error("Failed to change password");
     } finally {
       setLoading(false);
     }

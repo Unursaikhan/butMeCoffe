@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { HeaderSignedOut } from "./_components/HeaderSingedOut";
 import { useAuth } from "../_providers/AuthProvider";
 import { HeaderSignedIn } from "./_components/HeaderSignedIn";
@@ -12,8 +11,6 @@ export default function Home() {
   const { user } = useAuth();
   const [step, setStep] = useState<"profile" | "payment">("profile");
   const [loading, setLoading] = useState(true);
-  console.log("hasdkjabsdlj", user);
-
   const router = useRouter();
   useEffect(() => {
     if (user?.profile?.id) {
