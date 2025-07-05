@@ -8,10 +8,9 @@ import {
 } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Username } from "../(auth)/signup/_components/username";
 import { api, setAuthToken } from "@/axios";
 
-type User = {
+export type Usertype = {
   id: string;
   email: string;
   image: string;
@@ -35,17 +34,16 @@ type User = {
   username: string;
 };
 type AuthContextType = {
-  user?: User;
+  user?: Usertype;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, username: string) => Promise<void>;
   signOut: () => Promise<void>;
-  setUser: (user?: User) => void;
+  setUser: (user?: Usertype) => void;
   getUser: () => Promise<void>;
 };
 const AuthContext = createContext({} as AuthContextType);
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState<User>();
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<Usertype>();
   const router = useRouter();
   const signIn = async (email: string, password: string) => {
     try {
@@ -53,7 +51,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         email,
         password,
       });
-      console.log("USer", data.user);
       localStorage.setItem("token", data.token);
       setUser(data.user);
       router.push("/");
@@ -89,11 +86,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     try {
       const { data } = await api.get(`/auth/refresh`);
       setUser(data);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-    }
+    } catch {}
   };
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -106,7 +99,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     <AuthContext.Provider
       value={{ user, signIn, signOut, signUp, setUser, getUser }}
     >
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };
