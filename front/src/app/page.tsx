@@ -1,11 +1,11 @@
 "use client";
-import { HeaderSignedOut } from "./_components/HeaderSingedOut";
-import { useAuth } from "../_providers/AuthProvider";
-import { HeaderSignedIn } from "./_components/HeaderSignedIn";
+import { HeaderSignedOut } from "./(user)/_components/HeaderSingedOut";
+import { useAuth } from "./_providers/AuthProvider";
+import { HeaderSignedIn } from "./(user)/_components/HeaderSignedIn";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Payment } from "./_components/Payment";
-import { CompletePro } from "./_components/CompletePro";
+import { Payment } from "./(user)/_components/Payment";
+import { CompletePro } from "./(user)/_components/CompletePro";
 
 export default function Home() {
   const { user } = useAuth();
