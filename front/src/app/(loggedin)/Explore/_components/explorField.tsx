@@ -23,7 +23,7 @@ export const ExploreField = () => {
   }, []);
 
   const filteredUsers = users.filter((user) =>
-    user.profile.name.toLowerCase().includes(search.toLowerCase())
+    user.profile?.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
